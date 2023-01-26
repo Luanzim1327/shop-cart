@@ -51,7 +51,7 @@ function genProducts (name , desc , price , image) {
     descItem.innerHTML = "Size : " + desc;
 
     let priceItem = document.createElement("span");
-    priceItem.innerHTML = "$ " + price + ".00";
+    priceItem.innerHTML = "$" + price + ".00";
 
     let btnItem = document.createElement("button");
     btnItem.innerHTML = "add to cart"
@@ -81,17 +81,15 @@ function pushToCart () {
     const name = containerProduct.querySelector("h3");
     const price = containerProduct.querySelector("span");
     const desc = containerProduct.querySelector("p");
-
-    let price1 = price.innerText.indexOf("$");
-    let price2 = price.innerText.indexOf(".00");
-    console.log(price2)
     
+    let breakPrice = price.innerText.split('')
+    let priceAdjust = breakPrice[1] + breakPrice[2] + breakPrice[3];
+
     createCart(name.innerText , price.innerText , desc.innerText);
     
 
     const finalePrice = document.getElementById("finale-price");
-    let updatePrice = totalPrice(Number(price2));
-    console.log(updatePrice);
+    let updatePrice = totalPrice(Number(priceAdjust));
     finalePrice.innerHTML = "$ " + updatePrice; 
 }
 
