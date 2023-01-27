@@ -35,6 +35,8 @@ let products = [
 let total = 0;
 
 const containerProducts = document.getElementById("container-products");
+const cartContainer = document.getElementById("cart");
+const toggleCart = document.getElementById("toggle-cart");
 
 function genProducts (name , desc , price , image) {
 
@@ -76,6 +78,7 @@ function getStatusProducts (){
 }
 
 function pushToCart () {
+    cartContainer.classList.remove("hide");
 
     const containerProduct = this.parentNode;
     const name = containerProduct.querySelector("h3");
@@ -119,6 +122,10 @@ function totalPrice(price) {
     total = total + price;
     return total;
 }
+
+toggleCart.addEventListener("click" , () => {
+    cartContainer.classList.toggle("hide");
+})
 
 getStatusProducts();
 

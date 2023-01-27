@@ -17,24 +17,76 @@ body {
 
 
 .container {
-    width: 90%;
+    width: 70%;
     height: 90%;
     background-color: rgba(235 , 235 , 235 , 0.8);
     box-shadow: 0px 15px 30px rgba(0, 0,0, 0.1);
     border-radius: 10px;
-    padding: 10px;
     position: relative;
     
 
+    overflow: hidden;
     display: flex;
-    justify-content: left;
+    flex-direction: column;
+}
+
+.container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #535DB9;
+    padding: 10px 5px;
+}
+
+.container header h2 {
+    margin-left: 100px;
+}
+
+.container header h2 a {
+    text-decoration: none;
+    color: white;
+
+}
+
+.container header ul  {
+    list-style: none;
+}
+
+.container header ul li {
+    margin-right: 100px;
+}
+
+.container header ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 15pt;
+    position: relative;
+}
+
+.container header ul li a span {
+    background-color: #53DCC1;
+    color: white;
+    position: absolute;
+    bottom: -30%;
+    left: 52%;
+    font-weight: bold;
+    margin-top: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: 12pt;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
 .container .container-products {
+
     display: grid;
+    justify-items: center;
+    max-width: 500px;
     grid-template: repeat(2, 1fr) / repeat(2 , 1fr);
-    padding: 10px;
 }
 
 .container .container-products .product-item {
@@ -98,9 +150,9 @@ body {
     border-radius: 10px;
     position: absolute;
     padding: 10px;
-    top: 0;
+    bottom: 0;
     right: 0;
-    margin-top: 20px;
+    margin-bottom: 20px;
     margin-right: 20px;
 
     box-shadow: 0px 15px 30px rgba(0, 0,0, 0.1);
@@ -141,6 +193,7 @@ body {
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .cart .total-bussiness .container-price {
@@ -179,6 +232,6 @@ body {
 
 /* hide */
 
-/* .cart.hide {
+.cart.hide {
     display: none;
-} */
+}
