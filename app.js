@@ -33,10 +33,12 @@ let products = [
 ]
 
 let total = 0;
+let lengthCart = 0;
 
 const containerProducts = document.getElementById("container-products");
 const cartContainer = document.getElementById("cart");
 const toggleCart = document.getElementById("toggle-cart");
+const indexCart = toggleCart.querySelector("span");
 
 function genProducts (name , desc , price , image) {
 
@@ -78,7 +80,11 @@ function getStatusProducts (){
 }
 
 function pushToCart () {
-    cartContainer.classList.remove("hide");
+
+    lengthCart++;
+    indexCart.innerHTML = lengthCart;
+
+
 
     const containerProduct = this.parentNode;
     const name = containerProduct.querySelector("h3");
@@ -101,17 +107,26 @@ function createCart (name , price , desc) {
 
     let productCart = document.createElement("div");
     productCart.classList.add("product-cart");
+
     let nameItemCart = document.createElement("h4");
+
     let descItemCart = document.createElement("p");
+
     let priceItemCart = document.createElement("span");
+
+    let btnRemoveItem = document.createElement("button");
+    btnRemoveItem.addEventListener("click" , removeItem);
+
     
     nameItemCart.innerHTML = name
     priceItemCart.innerHTML = price 
     descItemCart.innerHTML = desc
+    btnRemoveItem.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
 
     productCart.appendChild(nameItemCart);
     productCart.appendChild(descItemCart);
     productCart.appendChild(priceItemCart);
+    productCart.appendChild(btnRemoveItem);
 
     containerCartProducts.appendChild(productCart);
 
@@ -123,9 +138,21 @@ function totalPrice(price) {
     return total;
 }
 
+function removeItem () {
+    
+    let deleteContainer = this.parentNode;
+    
+    deleteContainer.remove();
+    
+    lengthCart--
+    indexCart.innerHTML = lengthCart;
+
+}
+
 toggleCart.addEventListener("click" , () => {
     cartContainer.classList.toggle("hide");
 })
+
 
 getStatusProducts();
 

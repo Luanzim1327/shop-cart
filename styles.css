@@ -189,6 +189,20 @@ body {
     font-weight: bold;
 }
 
+.cart .container-cart-products .product-cart button {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.cart .container-cart-products .product-cart button i {
+    border: none;
+    color: white;
+    font-size: 1.25rem;
+    padding: 5px;
+}
+
 .cart .total-bussiness {
     width: 100%;
     border-radius: 10px;
@@ -234,4 +248,15 @@ body {
 
 .cart.hide {
     display: none;
+}
+
+/*  scroll bar */
+
+::-webkit-scrollbar{
+    width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:#fff;
+    border-radius: 10px;
 }
