@@ -40,7 +40,7 @@ body {
 }
 
 .container header h2 {
-    margin-left: 100px;
+    margin-left: 6.25rem;
 }
 
 .container header h2 a {
@@ -51,9 +51,6 @@ body {
 
 .container header ul  {
     list-style: none;
-}
-
-.container header ul li {
     margin-right: 100px;
 }
 
@@ -259,4 +256,59 @@ body {
 ::-webkit-scrollbar-thumb {
     background-color:#fff;
     border-radius: 10px;
+}
+
+@media (max-width:600px) {
+    .container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0px;
+        overflow-y: auto;
+    }
+
+    .container .container-products {
+        display: grid;
+        justify-items: center;
+        max-width: 600px;
+        grid-template: auto / repeat(1 , 1fr);
+        padding-top:3.125rem ;
+    }
+
+    .container header {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #535DB9;
+        padding: 10px 5px;
+    }
+
+    .container header h2 {
+        margin-left: 3.125rem;
+    }
+
+    .container header ul {
+        margin-right: 3.125rem;
+    }
+
+    .container .cart {
+        position: fixed;
+        width: 90%;
+        height: 88%;
+    }
+
+    .container .cart::-webkit-scrollbar{
+        width: 0.75rem;
+    }
+
+    .container::-webkit-scrollbar{
+        width: 0;
+    }
+    
+    .container::-webkit-scrollbar-thumb {
+        background-color:rgba(46, 38, 38, 0.667);
+        border-radius: 10px;
+    }
+
 }

@@ -42,33 +42,21 @@ const indexCart = toggleCart.querySelector("span");
 
 function genProducts (name , desc , price , image) {
 
-    let productItem = document.createElement("div");
-    productItem.classList.add("product-item");
+    containerProducts.innerHTML += 
+    `
+        <div class="product-item">
+            <img src="${image}">
+            <h3>${name}</h3>
+            <p>Size: ${desc}</p>
+            <span>$ ${price}.00</span>
+            <button>Add to Cart</button>
+        </div>
+    `
 
-    let imageItem = document.createElement("img");
-    imageItem.src = image;
-
-    let nameItem = document.createElement("h3");
-    nameItem.innerHTML = name;
-
-    let descItem = document.createElement("p");
-    descItem.innerHTML = "Size : " + desc;
-
-    let priceItem = document.createElement("span");
-    priceItem.innerHTML = "$" + price + ".00";
-
-    let btnItem = document.createElement("button");
-    btnItem.innerHTML = "add to cart"
-    btnItem.addEventListener("click" , pushToCart); 
-
-    productItem.appendChild(imageItem);
-    productItem.appendChild(nameItem);
-    productItem.appendChild(descItem);
-    productItem.appendChild(priceItem);
-    productItem.appendChild(btnItem);
-
-    containerProducts.appendChild(productItem)
-
+    const btnAddToCart = containerProducts.querySelectorAll("button");
+    btnAddToCart.forEach((btn) => {
+        btn.addEventListener("click" , pushToCart);
+    })
 }
 
 
@@ -84,9 +72,8 @@ function pushToCart () {
     lengthCart++;
     indexCart.innerHTML = lengthCart;
 
-
-
     const containerProduct = this.parentNode;
+
     const name = containerProduct.querySelector("h3");
     const price = containerProduct.querySelector("span");
     const desc = containerProduct.querySelector("p");
@@ -105,30 +92,20 @@ function pushToCart () {
 function createCart (name , price , desc) {
     const containerCartProducts = document.getElementById("container-cart-products");
 
-    let productCart = document.createElement("div");
-    productCart.classList.add("product-cart");
+    containerCartProducts.innerHTML += 
+    `   
+    <div class="product-cart" id="product-cart">
+        <h4>${name}</h4>
+        <p>${desc}</p>    
+        <span>${price}</span>
+        <button><i class="fa-solid fa-xmark" ></i></button>    
+        </div>
+    `
 
-    let nameItemCart = document.createElement("h4");
-
-    let descItemCart = document.createElement("p");
-
-    let priceItemCart = document.createElement("span");
-
-    let btnRemoveItem = document.createElement("button");
-    btnRemoveItem.addEventListener("click" , removeItem);
-
-    
-    nameItemCart.innerHTML = name
-    priceItemCart.innerHTML = price 
-    descItemCart.innerHTML = desc
-    btnRemoveItem.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
-
-    productCart.appendChild(nameItemCart);
-    productCart.appendChild(descItemCart);
-    productCart.appendChild(priceItemCart);
-    productCart.appendChild(btnRemoveItem);
-
-    containerCartProducts.appendChild(productCart);
+    const btnDelete = containerCartProducts.querySelectorAll("button");
+    btnDelete.forEach((btn) => {
+        btn.addEventListener("click" , removeItem);
+    })
 
 }
 
@@ -139,11 +116,9 @@ function totalPrice(price) {
 }
 
 function removeItem () {
-    
-    let deleteContainer = this.parentNode;
-    
+    const deleteContainer = this.parentNode;
     deleteContainer.remove();
-    
+
     lengthCart--
     indexCart.innerHTML = lengthCart;
 
