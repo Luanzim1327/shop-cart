@@ -32,102 +32,77 @@ let products = [
     } ,
 ]
 
-let total = 0;
 let lengthCart = 0;
+let cart = [];
+let i = 0;
 
 const containerProducts = document.getElementById("container-products");
 const cartContainer = document.getElementById("cart");
 const toggleCart = document.getElementById("toggle-cart");
 const indexCart = toggleCart.querySelector("span");
+const containerCartProducts = document.getElementById("container-cart-products");
 
-function genProducts (name , desc , price , image) {
+const categories = [...new Set(products.map((item) => 
+    {return item}    
+))]
 
-    containerProducts.innerHTML += 
-    `
+document.getElementById("container-products").innerHTML = 
+
+    categories.map((item) => {
+        var {image , name , desc_composition , price} = item;
+
+       return ( `
         <div class="product-item">
             <img src="${image}">
             <h3>${name}</h3>
-            <p>Size: ${desc}</p>
-            <span>$ ${price}.00</span>
-            <button>Add to Cart</button>
-        </div>
-    `
+            <p>Size: ${desc_composition}</p>
+            <span>$ ${price}.00</span>` +
+            "<button onclick='pushToCart("+(i++)+")'>Add to Cart</button>" +
+        `</div>
+     `)
 
-    const btnAddToCart = containerProducts.querySelectorAll("button");
-    btnAddToCart.forEach((btn) => {
-        btn.addEventListener("click" , pushToCart);
-    })
+}).join("");
+
+function pushToCart (e) {
+
+    cart.push({...categories[e]});
+    displayCart();
 }
 
+function displayCart () {
+     let j = 0;
+     total = 0;
 
-function getStatusProducts (){
-    products.map((item) => {
-        genProducts(item.name ,  item.desc_composition , item.price , item.image);
+    document.getElementById("count").innerHTML = cart.length;
+    if(cart.length === 0) {
+        containerCartProducts.innerHTML = `<h2>Your cart is empty</h2>`;
+        document.getElementById("finale-price").innerHTML = "$" + 0 +".00";
+    }else {
+        containerCartProducts.innerHTML = cart.map((item) => {
+           var {name , price, desc_composition} = item;
+            total = total + price
+            document.getElementById("finale-price").innerHTML = "$ " + total + ".00";
+           return (
+            `   
+            <div class="product-cart" id="product-cart">
+                <h4>${name}</h4>
+                <p>${desc_composition}</p>    
+                <span>$ ${price}.00</span>` +
+                "<i class='fa-solid fa-xmark' onclick='delElement("+(j++)+")'></i>" +
+            `</div>
+             `
+           )
 
-    })
+        }).join("")
+    }
 }
 
-function pushToCart () {
-
-    lengthCart++;
-    indexCart.innerHTML = lengthCart;
-
-    const containerProduct = this.parentNode;
-
-    const name = containerProduct.querySelector("h3");
-    const price = containerProduct.querySelector("span");
-    const desc = containerProduct.querySelector("p");
-    
-    let breakPrice = price.innerText.split('')
-    let priceAdjust = breakPrice[1] + breakPrice[2] + breakPrice[3];
-
-    createCart(name.innerText , price.innerText , desc.innerText);
-    
-
-    const finalePrice = document.getElementById("finale-price");
-    let updatePrice = totalPrice(Number(priceAdjust));
-    finalePrice.innerHTML = "$ " + updatePrice; 
-}
-
-function createCart (name , price , desc) {
-    const containerCartProducts = document.getElementById("container-cart-products");
-
-    containerCartProducts.innerHTML += 
-    `   
-    <div class="product-cart" id="product-cart">
-        <h4>${name}</h4>
-        <p>${desc}</p>    
-        <span>${price}</span>
-        <button><i class="fa-solid fa-xmark" ></i></button>    
-        </div>
-    `
-
-    const btnDelete = containerCartProducts.querySelectorAll("button");
-    btnDelete.forEach((btn) => {
-        btn.addEventListener("click" , removeItem);
-    })
-
-}
-
-function totalPrice(price) {
-
-    total = total + price;
-    return total;
-}
-
-function removeItem () {
-    const deleteContainer = this.parentNode;
-    deleteContainer.remove();
-
-    lengthCart--
-    indexCart.innerHTML = lengthCart;
-
+function delElement(e) {
+    cart.splice(e , 1);
+    console.log(cart);
+    displayCart();
 }
 
 toggleCart.addEventListener("click" , () => {
     cartContainer.classList.toggle("hide");
 })
-
-
-getStatusProducts();
-
